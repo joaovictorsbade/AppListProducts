@@ -2,21 +2,13 @@
     <string name="app_name">AppListProducts</string>
 
 
-    <string name="date">Explore o deslumbrante mundo de Los Santos e Blaine County na experiência definitiva de Grand Theft Auto V
-        </string>
+    <string name="date">RockStar</string>
 
-    <string name="rating">Pouse em locais estratégicos, saqueie armas e suprimentos e sobreviva para se tornar a última equipe de pé</string>
+    <string name="rating">Krafton</string>
 
-    <string name="edit">Com mais de 1 trilhão de níveis jogados, esse jogo de combinações é um dos jogos mobile de maior sucesso de todos os tempos!
+    <string name="edit">King</string>
 
-Combine doces nesta divina aventura para avançar entre os níveis e ter aquele gosto doce da vitória. Pense rápido e faça jogadas inteligentes para ganhar deliciosas cascatas de arco-íris e combos de doces que são uma loucura!
+    <string name="camera">Riot</string>
 
-Planeje suas jogadas com combinações de 3 ou mais doces, use os boosters com sabedoria e vença os níveis mais difíceis. Exploda o chocolate e colete doces por milhares de níveis. Você não vai querer parar!
-
-        </string>
-
-    <string name="camera">VALORANT é um FPS multijogador com personagens da Riot Games. Disponível globalmente. Lutem e vençam juntos com trabalho em equipe e estratégia</string>
-
-    <string name="recyclerview">Genshin Impact é um jogo RPG de aventura de mundo aberto. No jogo você explorará um mundo fantástico chamado Teyvat
-    </string>
+    <string name="recyclerview">Mihoyo</string>
 </resources>

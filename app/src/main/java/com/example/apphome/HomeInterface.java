@@ -46,25 +46,27 @@ public class HomeInterface extends AppCompatActivity {
         recyclerView.setLayoutManager(gridLayoutManager);
         dataList = new ArrayList<>();
 
-        androidData = new DataClass("Valorant", R.string.camera, "Riot", R.drawable.icone_game);
+        androidData = new DataClass("Valorant", R.string.camera, "12 anos", R.drawable.icone_game);
         dataList.add(androidData);
 
-        androidData = new DataClass("Genshin Impact", R.string.recyclerview, "Mihoyo", R.drawable.icone_game);
+        androidData = new DataClass("Genshin Impact", R.string.recyclerview, "Livre", R.drawable.icone_game);
         dataList.add(androidData);
 
-        androidData = new DataClass("Gta", R.string.date, "RockStar", R.drawable.icone_game);
+        androidData = new DataClass("Gta", R.string.date, "18 anos", R.drawable.icone_game);
         dataList.add(androidData);
 
-        androidData = new DataClass("Candy Crush", R.string.edit, "King", R.drawable.icone_game);
+        androidData = new DataClass("Candy Crush", R.string.edit, "Livre", R.drawable.icone_game);
         dataList.add(androidData);
 
-        androidData = new DataClass("Pubg", R.string.rating, "Java", R.drawable.icone_game);
+        androidData = new DataClass("Pubg", R.string.rating, "12 anos", R.drawable.icone_game);
         dataList.add(androidData);
 
         adapter = new MyAdapter(HomeInterface.this, dataList);
         recyclerView.setAdapter(adapter);
     }
 
+
+    //Pesquisa
     private void searchList(String text){
         List<DataClass> dataSearchList = new ArrayList<>();
         for (DataClass data : dataList){
