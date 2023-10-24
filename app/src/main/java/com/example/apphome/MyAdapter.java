@@ -1,6 +1,8 @@
 package com.example.apphome;
+
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
@@ -17,16 +19,16 @@ import com.example.apphome.R;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> implements Filterable {
+public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
 
     private Context context;
-    private List<Game> gameList;
+    private List<Game> dataList;
     private List<Game> filteredList;
 
-    public MyAdapter(Context context, List<Game> gameList) {
+    public MyAdapter(Context context, List<Game> dataList) {
         this.context = context;
-        this.gameList = gameList;
-        this.filteredList = new ArrayList<>(gameList);
+        this.dataList = dataList;
+        this.filteredList = new ArrayList<>(dataList);
     }
 
     @NonNull
@@ -37,7 +39,33 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> impl
     }
 
     @Override
+    public int getItemCount() {
+        return filteredList.size();
+    }
+
+    public void setSearchList(List<Game> dataSearchList) {
+        this.filteredList = dataSearchList;
+        notifyDataSetChanged();
+    }
+
+    public class MyViewHolder extends RecyclerView.ViewHolder {
+        TextView recTitle;
+        TextView recDesc;
+        TextView recLang;
+
+        public MyViewHolder(@NonNull View itemView) {
+            super(itemView);
+            recTitle = itemView.findViewById(R.id.recTitle);
+            recDesc = itemView.findViewById(R.id.recDesc);
+            recLang = itemView.findViewById(R.id.recLang);
+        }
+    }
+//...
+    @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
+        if (filteredList == null || position < 0 || position >= filteredList.size()) {
+            return; // Verifique se a lista está nula ou a posição é inválida
+        }
         Game game = filteredList.get(position);
 
         holder.recTitle.setText(game.getGameName());
@@ -53,62 +81,9 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> impl
                     Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(link));
                     context.startActivity(browserIntent);
                 }
+                else{System.out.println("deu ruim myadapter");}
             }
         });
-
     }
-
-    public int getItemCount() {
-        return filteredList.size();
-    }
-
-    @Override
-    public Filter getFilter() {
-        return new Filter() {
-            @Override
-            protected FilterResults performFiltering(CharSequence charSequence) {
-                String query = charSequence.toString().toLowerCase().trim();
-                if (query.isEmpty()) {
-                    filteredList = new ArrayList<>(gameList);
-                } else {
-                    List<Game> temp = new ArrayList<>();
-                    for (Game game : gameList) {
-                        if (game.getGameName().toLowerCase().contains(query) || game.getLink().toLowerCase().contains(query)) {
-                            temp.add(game);
-                        }
-                    }
-                    filteredList = temp;
-                }
-
-                FilterResults filterResults = new FilterResults();
-                filterResults.values = filteredList;
-                return filterResults;
-            }
-
-            @Override
-            protected void publishResults(CharSequence charSequence, FilterResults filterResults) {
-                filteredList = (List<Game>) filterResults.values;
-                notifyDataSetChanged();
-            }
-        };
-    }
-
-    public class MyViewHolder extends RecyclerView.ViewHolder {
-        TextView recTitle;
-        TextView recDesc;
-        TextView recLang;
-
-        public MyViewHolder(@NonNull View itemView) {
-            super(itemView);
-            recTitle = itemView.findViewById(R.id.recTitle);
-            recDesc = itemView.findViewById(R.id.recDesc);
-            recLang = itemView.findViewById(R.id.recLang);
-        }
-    }
-
-     public void setSearchList(List<Game> dataSearchList){
-       this.gameList = dataSearchList;
-         notifyDataSetChanged();
-       }
-
+//...
 }

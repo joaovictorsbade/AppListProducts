@@ -1,40 +1,33 @@
 package com.example.apphome;
 
-import static com.example.apphome.GameDao.listAllGames;
-
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.SearchView;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
-import androidx.appcompat.widget.SearchView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.apphome.Game;
-import com.example.apphome.R;
 import com.example.apphome.MyAdapter;
-
-
-import com.google.android.material.bottomnavigation.BottomNavigationView;
+import static com.example.apphome.GameDao.listAllGames;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 public class HomeInterface extends AppCompatActivity {
 
-    public static final String TAG = "Home Activty";
-
     RecyclerView recyclerView;
-    List<Game> game = new ArrayList<>();
+    //    List<DataClass> dataList;
+//    List<Game> dataList;
     MyAdapter adapter;
+    //    DataClass androidData;
     Game androidData;
-    private List<Game> gameList;
     SearchView searchView;
-
-    String mGameName , mLink;
-
+    String mGameName, mClassification, mCompanyName;
+    List<Game> dataList = new ArrayList<>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -57,32 +50,35 @@ public class HomeInterface extends AppCompatActivity {
             }
         });
 
+//        ...
+
         GridLayoutManager gridLayoutManager = new GridLayoutManager(HomeInterface.this, 1);
         recyclerView.setLayoutManager(gridLayoutManager);
 
-
-        // Recupere a lista de jogos do banco de dados
-        List<Game> gameList = listAllGames(HomeInterface.this);
+        // Obtenha a lista de jogos do banco de dados
+        dataList = listAllGames(HomeInterface.this);
 
         // Verifique se a lista não está vazia antes de prosseguir
-        if (gameList != null && !gameList.isEmpty()) {
-            game = new ArrayList<>(gameList); // Defina game como uma nova instância da lista gameList
-            adapter = new MyAdapter(HomeInterface.this, gameList);
+        if (dataList != null && !dataList.isEmpty()) {
+            adapter = new MyAdapter(HomeInterface.this, dataList);
             recyclerView.setAdapter(adapter);
-        } else {
+        } else {System.out.println("deu ruim homeinterface");
             // Lidar com o caso em que a lista de jogos está vazia (por exemplo, exibir uma mensagem de aviso)
         }
+
+//        ...
     }
 
-    //    Pesquisa
-    private void searchList(String text){
+
+    //Pesquisa
+    private void searchList(String text) {
         List<Game> dataSearchList = new ArrayList<>();
-        for (Game data : game){
+        for (Game data : dataList) {
             if (data.getGameName().toLowerCase().contains(text.toLowerCase())) {
                 dataSearchList.add(data);
             }
         }
-        if (dataSearchList.isEmpty()){
+        if (dataSearchList.isEmpty()) {
             Toast.makeText(this, "Not Found", Toast.LENGTH_SHORT).show();
         } else {
             adapter.setSearchList(dataSearchList);

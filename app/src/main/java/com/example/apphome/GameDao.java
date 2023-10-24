@@ -80,7 +80,7 @@ public class GameDao {
 
         try {
 //            ,jogo.link AS link_do_jogo, jogo.descricao AS descricao_do_jogo talvez
-            mSql = "SELECT jogo.nome AS nome_do_jogo,jogo.classificacao AS classificação_do_jogo, empresa.nome AS nome_da_empresa \n" +
+            mSql = "SELECT jogo.nome,jogo.classificacao , empresa.nome \n" +
                     "FROM jogo\n" +
                     "INNER JOIN empresa ON jogo.empresa_id = empresa.id";
             PreparedStatement mPreparedStatement = MSSQLConnectionHelper.getConnection(mContext).prepareStatement(mSql);
@@ -102,7 +102,7 @@ public class GameDao {
 
 
         } catch (Exception e) {
-
+            System.out.println("deu ruim gameDao");
             Log.e(TAG, e.getMessage());
             e.printStackTrace();
         }
