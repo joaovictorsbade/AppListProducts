@@ -22,10 +22,10 @@
     <ImageView
         android:layout_width="400dp"
         android:layout_height="200dp"
-        android:id="@+id/detailImage"
+        android:id="@+id/imggame"
         android:padding="8dp"
         android:layout_gravity="center"
-        android:src="@drawable/text_detail"
+        android:src="@drawable/img_app_game2"
         android:scaleType="centerCrop"/>
 
     <TextView

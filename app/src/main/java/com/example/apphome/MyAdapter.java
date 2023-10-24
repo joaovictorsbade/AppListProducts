@@ -1,32 +1,32 @@
 package com.example.apphome;
-
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
+import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.TextView;
 
+import com.example.apphome.Game;
+import com.example.apphome.R;
+
+import java.util.ArrayList;
 import java.util.List;
 
-import androidx.annotation.NonNull;
-import androidx.cardview.widget.CardView;
-import androidx.recyclerview.widget.RecyclerView;
-
-public class MyAdapter extends RecyclerView.Adapter<MyViewHolder> {
+public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> implements Filterable {
 
     private Context context;
-    private List<DataClass> dataList;
+    private List<Game> gameList;
+    private List<Game> filteredList;
 
-    public void setSearchList(List<DataClass> dataSearchList){
-        this.dataList = dataSearchList;
-        notifyDataSetChanged();
-    }
-
-    public MyAdapter(Context context, List<DataClass> dataList){
+    public MyAdapter(Context context, List<Game> gameList) {
         this.context = context;
-        this.dataList = dataList;
+        this.gameList = gameList;
+        this.filteredList = new ArrayList<>(gameList);
     }
 
     @NonNull
@@ -38,45 +38,77 @@ public class MyAdapter extends RecyclerView.Adapter<MyViewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
+        Game game = filteredList.get(position);
 
-        holder.recImage.setImageResource(dataList.get(position).getDataImage());
-        holder.recTitle.setText(dataList.get(position).getDataTitle());
-        holder.recDesc.setText(dataList.get(position).getDataDesc());
-        holder.recLang.setText(dataList.get(position).getDataLang());
+        holder.recTitle.setText(game.getGameName());
+        holder.recDesc.setText(game.getCompanyName());
+        holder.recLang.setText(game.getClassification());
 
-        holder.recCard.setOnClickListener(new View.OnClickListener() {
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(context, DetailActivity.class);
-                intent.putExtra("Image", dataList.get(holder.getAdapterPosition()).getDataImage());
-                intent.putExtra("Title", dataList.get(holder.getAdapterPosition()).getDataTitle());
-                intent.putExtra("Desc", dataList.get(holder.getAdapterPosition()).getDataDesc());
+                String link = game.getLink();
 
-                context.startActivity(intent);
+                if (link != null && !link.isEmpty()) {
+                    Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(link));
+                    context.startActivity(browserIntent);
+                }
             }
         });
 
     }
 
-    @Override
     public int getItemCount() {
-        return dataList.size();
+        return filteredList.size();
     }
-}
 
-class MyViewHolder extends RecyclerView.ViewHolder{
+    @Override
+    public Filter getFilter() {
+        return new Filter() {
+            @Override
+            protected FilterResults performFiltering(CharSequence charSequence) {
+                String query = charSequence.toString().toLowerCase().trim();
+                if (query.isEmpty()) {
+                    filteredList = new ArrayList<>(gameList);
+                } else {
+                    List<Game> temp = new ArrayList<>();
+                    for (Game game : gameList) {
+                        if (game.getGameName().toLowerCase().contains(query) || game.getLink().toLowerCase().contains(query)) {
+                            temp.add(game);
+                        }
+                    }
+                    filteredList = temp;
+                }
 
-    ImageView recImage;
-    TextView recTitle, recDesc, recLang;
-    CardView recCard;
+                FilterResults filterResults = new FilterResults();
+                filterResults.values = filteredList;
+                return filterResults;
+            }
 
-    public MyViewHolder(@NonNull View itemView) {
-        super(itemView);
-
-        recImage = itemView.findViewById(R.id.recImage);
-        recTitle = itemView.findViewById(R.id.recTitle);
-        recDesc = itemView.findViewById(R.id.recDesc);
-        recLang = itemView.findViewById(R.id.recLang);
-        recCard = itemView.findViewById(R.id.recCard);
+            @Override
+            protected void publishResults(CharSequence charSequence, FilterResults filterResults) {
+                filteredList = (List<Game>) filterResults.values;
+                notifyDataSetChanged();
+            }
+        };
     }
+
+    public class MyViewHolder extends RecyclerView.ViewHolder {
+        TextView recTitle;
+        TextView recDesc;
+        TextView recLang;
+
+        public MyViewHolder(@NonNull View itemView) {
+            super(itemView);
+            recTitle = itemView.findViewById(R.id.recTitle);
+            recDesc = itemView.findViewById(R.id.recDesc);
+            recLang = itemView.findViewById(R.id.recLang);
+        }
+    }
+
+     public void setSearchList(List<Game> dataSearchList){
+       this.gameList = dataSearchList;
+         notifyDataSetChanged();
+       }
+
 }

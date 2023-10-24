@@ -1,24 +1,39 @@
 package com.example.apphome;
 
+import static com.example.apphome.GameDao.listAllGames;
+
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.SearchView;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
+import androidx.appcompat.widget.SearchView;
 import android.widget.Toast;
+
+import com.example.apphome.Game;
+import com.example.apphome.R;
+import com.example.apphome.MyAdapter;
+
+
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 
 public class HomeInterface extends AppCompatActivity {
 
+    public static final String TAG = "Home Activty";
+
     RecyclerView recyclerView;
-    List<DataClass> dataList;
+    List<Game> game = new ArrayList<>();
     MyAdapter adapter;
-    DataClass androidData;
+    Game androidData;
+    private List<Game> gameList;
     SearchView searchView;
+
+    String mGameName , mLink;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,33 +59,26 @@ public class HomeInterface extends AppCompatActivity {
 
         GridLayoutManager gridLayoutManager = new GridLayoutManager(HomeInterface.this, 1);
         recyclerView.setLayoutManager(gridLayoutManager);
-        dataList = new ArrayList<>();
 
-        androidData = new DataClass("Valorant", R.string.camera, "12 anos", R.drawable.icone_game);
-        dataList.add(androidData);
 
-        androidData = new DataClass("Genshin Impact", R.string.recyclerview, "Livre", R.drawable.icone_game);
-        dataList.add(androidData);
+        // Recupere a lista de jogos do banco de dados
+        List<Game> gameList = listAllGames(HomeInterface.this);
 
-        androidData = new DataClass("Gta", R.string.date, "18 anos", R.drawable.icone_game);
-        dataList.add(androidData);
-
-        androidData = new DataClass("Candy Crush", R.string.edit, "Livre", R.drawable.icone_game);
-        dataList.add(androidData);
-
-        androidData = new DataClass("Pubg", R.string.rating, "12 anos", R.drawable.icone_game);
-        dataList.add(androidData);
-
-        adapter = new MyAdapter(HomeInterface.this, dataList);
-        recyclerView.setAdapter(adapter);
+        // Verifique se a lista não está vazia antes de prosseguir
+        if (gameList != null && !gameList.isEmpty()) {
+            game = new ArrayList<>(gameList); // Defina game como uma nova instância da lista gameList
+            adapter = new MyAdapter(HomeInterface.this, gameList);
+            recyclerView.setAdapter(adapter);
+        } else {
+            // Lidar com o caso em que a lista de jogos está vazia (por exemplo, exibir uma mensagem de aviso)
+        }
     }
 
-
-    //Pesquisa
+    //    Pesquisa
     private void searchList(String text){
-        List<DataClass> dataSearchList = new ArrayList<>();
-        for (DataClass data : dataList){
-            if (data.getDataTitle().toLowerCase().contains(text.toLowerCase())) {
+        List<Game> dataSearchList = new ArrayList<>();
+        for (Game data : game){
+            if (data.getGameName().toLowerCase().contains(text.toLowerCase())) {
                 dataSearchList.add(data);
             }
         }

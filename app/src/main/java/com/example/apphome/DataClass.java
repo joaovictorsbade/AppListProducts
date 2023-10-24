@@ -1,5 +1,7 @@
 package com.example.apphome;
 
+//Isso equivale ao User
+
 public class DataClass {
 
     private String dataTitle;
