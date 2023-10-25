@@ -1,42 +1,61 @@
-<?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".DetailActivity">
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/detailTitle"
-        android:layout_marginTop="14dp"
-        android:text="Title"
-        android:textSize="24sp"
-        android:layout_gravity="center"
-        android:textColor="@color/lavender"
-        android:layout_marginBottom="12dp"/>
+    android:padding="16dp">
 
     <ImageView
-        android:layout_width="400dp"
+        android:id="@+id/gameImage"
+        android:layout_width="match_parent"
         android:layout_height="200dp"
-        android:id="@+id/imggame"
-        android:padding="8dp"
-        android:layout_gravity="center"
-        android:src="@drawable/img_app_game2"
-        android:scaleType="centerCrop"/>
+        android:contentDescription="Imagem do jogo"
+        android:scaleType="centerCrop"
+        android:src="@drawable/img_app_game2" />
 
     <TextView
+        android:id="@+id/detailGameName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:text="Description"
-        android:padding="20dp"
-        android:layout_gravity="center"
-        android:textColor="@color/lavender"
-        android:textSize="18sp"
-        android:id="@+id/detailDesc"/>
+        android:layout_marginTop="16dp"
+        android:text="Nome do Jogo"
+        android:textColor="#000"
+        android:textSize="28sp"
+        android:textStyle="bold" />
 
+    <TextView
+        android:id="@+id/detailClassification"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="Classificação: Livre"
+        android:textColor="#333"
+        android:textSize="18sp" />
+
+    <TextView
+        android:id="@+id/detailCompanyName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="Desenvolvedora: Nome da Desenvolvedora"
+        android:textColor="#333"
+        android:textSize="18sp" />
+
+    <TextView
+        android:id="@+id/detailLink"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:background="#F44336"
+        android:text="Baixar"
+        android:textColor="#FFF"
+        android:textSize="20sp" />
+
+    <TextView
+        android:id="@+id/detailDescription"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="Descrição do Jogo..."
+        android:textColor="#666"
+        android:textSize="18sp" />
 </LinearLayout>

@@ -1,6 +1,7 @@
 package com.example.apphome;
 
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Context;
@@ -52,14 +53,35 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
         TextView recTitle;
         TextView recDesc;
         TextView recLang;
+        CardView recCard;
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
             recTitle = itemView.findViewById(R.id.recTitle);
             recDesc = itemView.findViewById(R.id.recDesc);
             recLang = itemView.findViewById(R.id.recLang);
+            recCard = itemView.findViewById(R.id.recCard);
         }
     }
+
+//    public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
+//        holder.recTitle.setText(dataList.get(position).getDataTitle());
+//        holder.recDesc.setText(dataList.get(position).getDataDesc());
+//        holder.recLang.setText(dataList.get(position).getDataLang());
+//        holder.recCard.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Intent intent = new Intent(context, DetailActivity.class);
+//                intent.putExtra("Title", dataList.get(holder.getAdapterPosition()).getDataTitle());
+//                intent.putExtra("", dataList.get(holder.getAdapterPosition()).getDataDesc());
+//                intent.putExtra("Desc", dataList.get(holder.getAdapterPosition()).getDataDesc());
+//                intent.putExtra("Desc", dataList.get(holder.getAdapterPosition()).getDataDesc());
+//                intent.putExtra("Desc", dataList.get(holder.getAdapterPosition()).getDataDesc());
+//                context.startActivity(intent);
+//            }
+//        });
+
+
 //...
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
@@ -75,15 +97,28 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String link = game.getLink();
-
-                if (link != null && !link.isEmpty()) {
-                    Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(link));
-                    context.startActivity(browserIntent);
-                }
-                else{System.out.println("deu ruim myadapter");}
+//                Game game = filteredList.get(position);
+                Intent intent = new Intent(context, DetailActivity.class);
+                intent.putExtra("GameName", dataList.get(holder.getAdapterPosition()).getGameName());
+                intent.putExtra("Classification", dataList.get(holder.getAdapterPosition()).getClassification());
+                intent.putExtra("CompanyName", dataList.get(holder.getAdapterPosition()).getCompanyName());
+                intent.putExtra("Link", dataList.get(holder.getAdapterPosition()).getLink());
+                intent.putExtra("Description", dataList.get(holder.getAdapterPosition()).getDescription());
+                context.startActivity(intent);
             }
         });
     }
 //...
+
 }
+
+
+//public void onClick(View view) {
+//                String link = game.getLink();
+//
+//                if (link != null && !link.isEmpty()) {
+//                    Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(link));
+//                    context.startActivity(browserIntent);
+//                }
+//                else{System.out.println("deu ruim myadapter");}
+

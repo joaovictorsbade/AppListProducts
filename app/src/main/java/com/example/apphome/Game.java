@@ -21,12 +21,12 @@ public class Game {
     }
 
     //Home Lista todos os jogos
-    public Game(String gameName, String classification,
-                String companyName) {
-        mGameName = gameName;
-        mClassification = classification;
-        mCompanyName = companyName;
-    }
+//    public Game(String gameName, String classification,
+//                String companyName) {
+//        mGameName = gameName;
+//        mClassification = classification;
+//        mCompanyName = companyName;
+//    }
 
     public Game(String gameName, String classification,
                 String companyName, String link, String description) {

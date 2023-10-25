@@ -80,7 +80,7 @@ public class GameDao {
 
         try {
 //            ,jogo.link AS link_do_jogo, jogo.descricao AS descricao_do_jogo talvez
-            mSql = "SELECT jogo.nome,jogo.classificacao , empresa.nome \n" +
+            mSql = "SELECT jogo.nome,jogo.classificacao , empresa.nome , jogo.link , jogo.descricao\n" +
                     "FROM jogo\n" +
                     "INNER JOIN empresa ON jogo.empresa_id = empresa.id";
             PreparedStatement mPreparedStatement = MSSQLConnectionHelper.getConnection(mContext).prepareStatement(mSql);
@@ -93,9 +93,9 @@ public class GameDao {
                 mGameList.add(new Game(
                         mResultSet.getString(1),
                         mResultSet.getString(2),
-                        mResultSet.getString(3)
-//                        mResultSet.getString(4),
-//                        mResultSet.getString(5)
+                        mResultSet.getString(3),
+                        mResultSet.getString(4),
+                        mResultSet.getString(5)
                 ));
 
             }

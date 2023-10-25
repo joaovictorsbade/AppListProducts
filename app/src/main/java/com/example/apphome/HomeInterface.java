@@ -62,7 +62,7 @@ public class HomeInterface extends AppCompatActivity {
         if (dataList != null && !dataList.isEmpty()) {
             adapter = new MyAdapter(HomeInterface.this, dataList);
             recyclerView.setAdapter(adapter);
-        } else {System.out.println("deu ruim homeinterface");
+        } else {System.out.println("Erro HomeInterface");
             // Lidar com o caso em que a lista de jogos está vazia (por exemplo, exibir uma mensagem de aviso)
         }
 
