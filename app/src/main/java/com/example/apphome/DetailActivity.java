@@ -24,10 +24,10 @@ public class DetailActivity extends AppCompatActivity {
         Bundle bundle = getIntent().getExtras();
         if (bundle != null){
             detailGameName.setText(bundle.getString("GameName"));
-            detailGameClassification.setText(bundle.getString("GameCassification"));
-            detailGameDeveloper.setText(bundle.getString("gameDeveloper"));
-            detailDownloadButton.setText(bundle.getString("DownloadButtom"));
-            detailGameDescription.setText(bundle.getString("GameDescription"));
+            detailGameClassification.setText(bundle.getString("Classification"));
+            detailGameDeveloper.setText(bundle.getString("CompanyName"));
+            detailDownloadButton.setText(bundle.getString("Link"));
+            detailGameDescription.setText(bundle.getString("Description"));
         }
     }
 }
