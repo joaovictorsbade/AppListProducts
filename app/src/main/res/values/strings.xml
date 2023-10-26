@@ -1,14 +1,3 @@
 <resources>
     <string name="app_name">AppListProducts</string>
-
-
-    <string name="date">RockStar</string>
-
-    <string name="rating">Krafton</string>
-
-    <string name="edit">King</string>
-
-    <string name="camera">Riot</string>
-
-    <string name="recyclerview">Mihoyo</string>
 </resources>
